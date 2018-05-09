@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Role" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectRoleList" resultMap="BaseResultMap">
+    select * from t_role ;
+  </select>
+  <select id="queryRoleByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select t_role.id,t_role.name from t_role ,user_role where user_role.roleId=t_role.id and user_role.userId=#{userId};
+  </select>
+  <update id="updateUserRole">
+    update user_role set roleId=#{roleId} where userId=#{userId}
+  </update>
+  <insert id="addFile" parameterType="java.lang.String">
+    insert into t_img(url) values(#{fileUrl});
+  </insert>
+  <select id="queryCountRole" resultMap="BaseResultMap">
+    select name,count(1) as count from t_role group by name;
+  </select>
+  <select id="queryCountTree" resultType="com.jk.model.Tree">
+    select text,count(1) as count from t_tree group by text;
+  </select>
+  <select id="selectImgList" resultType="com.jk.model.Img">
+    select * from t_img
+  </select>
+</mapper>

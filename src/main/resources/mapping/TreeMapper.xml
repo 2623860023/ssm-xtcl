@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.TreeMapper" >
+  <resultMap id="BaseResultMap" type="com.jk.model.Tree" >
+  </resultMap>
+
+  <select id="selectTreeList" resultMap="BaseResultMap">
+    select * from t_tree ;
+  </select>
+  <select id="queryTreeByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select t_tree.* from t_tree,user_role,role_tree where user_role.roleId=role_tree.roleId and role_tree.treeId=t_tree.id and user_role.roleId=#{roleId}
+  </select>
+  <select id="deleteTree" parameterType="java.lang.Integer">
+    delete from role_tree where roleId=#{roleId};
+  </select>
+  <insert id="saveRoleTree">
+    insert into role_tree (roleId,treeId) values(#{roleId},#{id});
+  </insert>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:cxf="http://cxf.apache.org/core"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://cxf.apache.org/jaxws  
+    http://cxf.apache.org/schemas/jaxws.xsd"> 
+	<!--引入cxf发布接口需要的配置文件 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml"/>
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/> 
+	<!-- 配置cxf客户端 
+	     id为注入到spring bean中的id
+	              此时cxf客户端相当于配置spring接口的实现类
+	    serviceClass 本地客户端接口 必须保证与服务端接口包名类名一致 否则报错
+	    address 服务端接口暴露地址
+	-->
+    <jaxws:endpoint id="imgSer" implementor="#imgService" address="/imgService">
+    </jaxws:endpoint>
+	</beans>
